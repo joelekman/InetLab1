@@ -30,7 +30,9 @@ public class ServerThread implements Runnable {
             		Server.usernames.put(user, socket); //TODO semaphore
             		username = user;
             		usernameSet = true;
+            		out.println("true");
             	} else {
+            		out.println("false");
             		out.println("Username is taken, please select another.");
             	}
             }

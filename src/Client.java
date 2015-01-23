@@ -1,13 +1,14 @@
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
+import java.util.concurrent.Semaphore;
 
 public class Client {
 	private static final int CONNECTION_PORT = 8991;
 	private static final String SERVER_ADRESS = "127.0.0.1";
 	private static Socket socket;
 	private static String username;
+	private static Semaphore semaphore = new Semaphore(0);
 	
 	public static void main(String[] args) throws IOException {
 		try {
@@ -22,19 +23,15 @@ public class Client {
 
 		System.out.println("Contacting to chat server ... ");
 
-		new Thread(new ClientInThread(socket)).start();
-		new Thread(new ClientOutThread(socket)).start();
+		new Thread(new ClientInThread(socket, semaphore)).start();
+		new Thread(new ClientOutThread(socket, semaphore)).start();
 		System.out.println("Connected  to chat.");
 		
 		// TODO close the client
 	}
 	
-	public boolean setUsername(String username){
-		if(this.username == null){
-			this.username = username;
-			return true;
-		}
-		return false;
+	public static void setUsername(String uname){
+		username = uname;
 	}
 	
 	public static String getUsername(){
