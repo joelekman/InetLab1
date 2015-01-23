@@ -36,12 +36,13 @@ public class ClientOutThread implements Runnable{
 				}
 				if(Client.getUsername() != null) {
 					usernameSet = true;
+					System.out.println("Welcome "+Client.getUsername()+"!");
 				}
 		}
 		boolean exit = false;
 		while(!exit){
+			//System.out.print(Client.getUsername() + ": ");
 			String message = scanner.nextLine();
-			System.out.println("this is what the scanner:"+message);//TODO remove
 			out.println(message);
 		}
 		scanner.close();

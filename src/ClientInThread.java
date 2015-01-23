@@ -29,6 +29,8 @@ public class ClientInThread implements Runnable{
 				if(usernameSet.equals("true")){
 					Client.setUsername(in.readLine());
 					break;
+				} else {
+					System.out.println(in.readLine());
 				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -41,7 +43,7 @@ public class ClientInThread implements Runnable{
 		
 		while(!exit){
         	try {
-				System.out.println(in.readLine());
+				System.out.print("\r"+in.readLine()+"\n");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

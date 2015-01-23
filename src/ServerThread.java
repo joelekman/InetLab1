@@ -26,14 +26,16 @@ public class ServerThread implements Runnable {
             
             while(!usernameSet){
             	String user = in.readLine();
-            	if (!Server.usernames.containsKey(user)){
-            		Server.usernames.put(user, socket); //TODO semaphore
+            	if (!Server.usernames.containsKey(user.toLowerCase())){
+            		Server.usernames.put(user.toLowerCase(), socket); //TODO semaphore
             		username = user;
             		usernameSet = true;
             		out.println("true");
+            		out.println(user);
+            		System.out.println("user singned in with username: "+username);
             	} else {
             		out.println("false");
-            		out.println("Username is taken, please select another.");
+            		out.println("Username "+user+" is taken, please select another.");
             	}
             }
             
