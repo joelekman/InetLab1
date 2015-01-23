@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Server {
 
@@ -9,6 +10,7 @@ public class Server {
 	static ArrayList<Socket> socketList = new ArrayList<Socket>();
 	private static boolean listening = true;
 	private static ServerSocket serverSocket;
+	static HashMap<String, Socket> usernames = new HashMap<String, Socket>();
 	
 	
 	public static void main(String[] args) {	

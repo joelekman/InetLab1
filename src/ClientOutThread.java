@@ -21,12 +21,12 @@ public class ClientOutThread implements Runnable{
 	public void run() {
 		System.out.println("Enter username: ");
 		Scanner scanner = new Scanner(System.in);
-		boolean setUsername = true;
-		while(setUsername){
+		boolean usernameSet = false;
+		while(!usernameSet){
 				String username = scanner.nextLine();
 				out.println(username);
 				if(Client.getUsername() != null) {
-					setUsername = false;
+					usernameSet = true;
 				}
 		}
 		boolean exit = false;

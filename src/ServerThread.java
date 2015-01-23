@@ -10,7 +10,7 @@ public class ServerThread implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
     private ArrayList<Socket> socketList;
-    
+    private String username;
     
     public ServerThread(Socket socket, ArrayList<Socket> socketList) {
         this.socket = socket;
@@ -18,17 +18,29 @@ public class ServerThread implements Runnable {
     }
     
     public void run(){   
+    	boolean usernameSet = false;
     	boolean exit = false;
         try {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            
+            while(!usernameSet){
+            	String user = in.readLine();
+            	if (!Server.usernames.containsKey(user)){
+            		Server.usernames.put(user, socket); //TODO semaphore
+            		username = user;
+            		usernameSet = true;
+            	} else {
+            		out.println("Username is taken, please select another.");
+            	}
+            }
             
             while(!exit){
 	            String message = in.readLine();
 	            for(Socket s: socketList){
 	            	if (!s.equals(socket)){
 	            		PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
-	            		pw.println(message);
+	            		pw.println(username + ": "+message);
 	            	}
 	            }
             }  
