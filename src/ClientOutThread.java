@@ -19,7 +19,16 @@ public class ClientOutThread implements Runnable{
 
 	@Override
 	public void run() {
+		System.out.println("Enter username: ");
 		Scanner scanner = new Scanner(System.in);
+		boolean setUsername = true;
+		while(setUsername){
+				String username = scanner.nextLine();
+				out.println(username);
+				if(Client.getUsername() != null) {
+					setUsername = false;
+				}
+		}
 		boolean exit = false;
 		while(!exit){
 			String message = scanner.nextLine();
