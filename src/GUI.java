@@ -30,43 +30,43 @@ public class GUI extends JFrame implements ActionListener {
 				exit();
 			}
 		};
-		
+
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		panel.setOpaque(true);
-		
-		
+
+
 		textField = new JTextArea(15,50); //To contain the incomming text
 		textField.setWrapStyleWord(true);
 		textField.setEditable(false);
 		DefaultCaret caret = (DefaultCaret)textField.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		
+
 		scroller = new JScrollPane(textField);
 		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		
+
 		inputPanel = new JPanel();
 		inputPanel.setLayout(new FlowLayout());
-		
+
 		inputField = new JTextField(20);
 		inputField.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				outgoingText();
 			}
 		});
-		
+
 		sendButton = new JButton("Send");
 		sendButton.addActionListener(this);
 
-		
+
 		panel.add(scroller);
 		inputPanel.add(inputField);
 		inputPanel.add(sendButton);
 		panel.add(inputPanel);
-		
+
 		frame.addWindowListener(exitListener);
 		frame.getContentPane().add(BorderLayout.CENTER,panel);
 		frame.pack();

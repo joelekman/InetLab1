@@ -31,7 +31,6 @@ public class Client {
 		clientInThread.start();
 		clientOutThread = new Thread(new ClientOutThread(socket, semaphore));
 		clientOutThread.start();
-		// TODO close the client
 	}
 	
 	public static void setUsername(String uname){
@@ -44,14 +43,11 @@ public class Client {
 	
 	public static void closeClient(){
 		ClientInThread.exitChat();
-		clientInThread.interrupt();
-		clientOutThread.interrupt();
 		try {
 			socket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		Thread.currentThread().interrupt();
 	}
 }   

@@ -16,7 +16,6 @@ public class ClientOutThread implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -24,16 +23,16 @@ public class ClientOutThread implements Runnable{
 		Client.gui.incommingText("Enter username. \n");
 		boolean usernameSet = false;
 		while(!usernameSet){
-				try {
-					semaphore.acquire();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if(Client.getUsername() != null) {
-					usernameSet = true;
-					Client.gui.incommingText("Welcome "+Client.getUsername()+"!\n");
-				}
+			try {
+				semaphore.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(Client.getUsername() != null) {
+				usernameSet = true;
+				Client.gui.incommingText("Welcome "+Client.getUsername()+"!\n");
+			}
 		}
 	}
 }
