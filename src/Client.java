@@ -3,6 +3,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.JFrame;
+
 public class Client {
 	private static final int CONNECTION_PORT = 8991;
 	private static final String SERVER_ADRESS = "127.0.0.1";
@@ -20,11 +22,14 @@ public class Client {
 			System.err.println("Couldn't open connection to " + SERVER_ADRESS);
 			System.exit(1);
 		}
-
+		
 		System.out.println("Contacting to chat server ... ");
 
 		new Thread(new ClientInThread(socket, semaphore)).start();
 		new Thread(new ClientOutThread(socket, semaphore)).start();
+		
+		GUI g = new GUI();
+		
 		System.out.println("Connected  to chat.");
 		
 		// TODO close the client
