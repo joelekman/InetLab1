@@ -6,8 +6,9 @@ import java.util.concurrent.Semaphore;
 
 
 public class ClientInThread implements Runnable{
-	BufferedReader in;
-	Semaphore semaphore = null;
+	private BufferedReader in;
+	private Semaphore semaphore = null;
+	private static Boolean exit; 
 	
 	public ClientInThread(Socket socket, Semaphore semaphore){
 		this.semaphore = semaphore;
@@ -21,7 +22,7 @@ public class ClientInThread implements Runnable{
 	
 	@Override
 	public void run() {
-		Boolean exit = false;
+		exit = false;
 		String usernameSet = null;
 		while(true){
 			try {
@@ -43,14 +44,22 @@ public class ClientInThread implements Runnable{
 		
 		while(!exit){
         	try {
-//				System.out.print("\r"+in.readLine()+"\n");
-        		Client.gui.incommingText("\r"+in.readLine()+"\n");
+        		Client.gui.incommingText(in.readLine());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
-		
+		try {
+			in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	public static void exitChat() {
+		exit = true;
+	}
+	
 }

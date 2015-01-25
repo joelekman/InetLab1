@@ -21,7 +21,7 @@ public class ClientOutThread implements Runnable{
 
 	@Override
 	public void run() {
-		Client.gui.incommingText("Enter username: \n");
+		Client.gui.incommingText("Enter username. \n");
 		boolean usernameSet = false;
 		while(!usernameSet){
 				try {
@@ -32,7 +32,7 @@ public class ClientOutThread implements Runnable{
 				}
 				if(Client.getUsername() != null) {
 					usernameSet = true;
-					Client.gui.incommingText("Welcome "+Client.getUsername()+"!");
+					Client.gui.incommingText("Welcome "+Client.getUsername()+"!\n");
 				}
 		}
 	}

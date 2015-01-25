@@ -2,6 +2,9 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
@@ -16,10 +19,17 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextField inputField;
 	private JButton sendButton;
 	private JScrollPane scroller;
+	private WindowListener exitListener;
 
 	public GUI() {
 		frame = new JFrame("Chat Master 3000");
-		//frame.setDefaultCloseOperation(exit()); TODO
+		frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		exitListener = new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e){
+				exit();
+			}
+		};
 		
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
@@ -57,12 +67,21 @@ public class GUI extends JFrame implements ActionListener {
 		inputPanel.add(sendButton);
 		panel.add(inputPanel);
 		
+		frame.addWindowListener(exitListener);
 		frame.getContentPane().add(BorderLayout.CENTER,panel);
 		frame.pack();
 		frame.setLocationByPlatform(true);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		inputField.requestFocus();
+	}
+
+	private int exit() {
+		// TODO Auto-generated method stub
+		Client.closeClient();
+		// Closes the GUI window
+		frame.dispose();
+		return 0;
 	}
 
 	@Override
@@ -74,6 +93,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void incommingText(String string) {
 		textField.append(string);
+		textField.append("\n");
 	}
 
 	public void outgoingText() {

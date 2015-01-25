@@ -32,7 +32,7 @@ public class ServerThread implements Runnable {
             		usernameSet = true;
             		out.println("true");
             		out.println(user);
-            		System.out.println("user singned in with username: "+username);
+            		System.out.println("User singned in with username: "+username);
             	} else {
             		out.println("false");
             		out.println("Username "+user+" is taken, please select another.");
@@ -43,8 +43,29 @@ public class ServerThread implements Runnable {
 	            String message = in.readLine();
 	            for(Socket s: socketList){
 //	            	if (!s.equals(socket)){ //TODO Remove
+//	            	if(s.){
+//	            		System.out.println("lkamfdea");
+//	            		if(s == socket){
+//	            			System.out.println(username + "logged out.");
+//	            			exit = true;
+//	            		}
+//	            		Server.usernames.remove(username);
+//	            		socketList.remove(s);
+//	            	} else {
+	            	if(message != null){
 	            		PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
-	            		pw.println(username + ": "+message);
+//	            		try {
+	            			pw.println(username + ": "+message);
+	            	} else {
+//	            		} catch (IOException e) {
+	            		if(s == socket){
+	            			System.out.println(username + " logged out.");
+	            			exit = true;
+	            			Server.usernames.remove(username);
+	            		}
+		            		socketList.remove(s);
+	            	}
+//	            		}
 //	            	}
 	            }
             }  

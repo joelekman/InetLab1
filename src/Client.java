@@ -10,6 +10,8 @@ public class Client {
 	private static String username;
 	private static Semaphore semaphore = new Semaphore(0);
 	protected static GUI gui;
+	private static Thread clientInThread;
+	private static Thread clientOutThread;
 	
 	public static void main(String[] args) throws IOException {
 		try {
@@ -25,11 +27,10 @@ public class Client {
 		gui = new GUI();
 		gui.incommingText("Connected to chat.\n");
 
-		new Thread(new ClientInThread(socket, semaphore)).start();
-		new Thread(new ClientOutThread(socket, semaphore)).start();
-		
-		
-
+		clientInThread = new Thread(new ClientInThread(socket, semaphore));
+		clientInThread.start();
+		clientOutThread = new Thread(new ClientOutThread(socket, semaphore));
+		clientOutThread.start();
 		// TODO close the client
 	}
 	
@@ -39,5 +40,18 @@ public class Client {
 	
 	public static String getUsername(){
 		return username;
+	}
+	
+	public static void closeClient(){
+		ClientInThread.exitChat();
+		clientInThread.interrupt();
+		clientOutThread.interrupt();
+		try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		Thread.currentThread().interrupt();
 	}
 }   
