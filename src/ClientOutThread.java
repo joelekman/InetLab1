@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 
 
 public class ClientOutThread implements Runnable{
-	PrintWriter out;
+	protected static PrintWriter out;
 	Semaphore semaphore = null;
 
 	public ClientOutThread(Socket socket, Semaphore semaphore){
@@ -23,11 +23,12 @@ public class ClientOutThread implements Runnable{
 	@Override
 	public void run() {
 		Client.gui.incommingText("Enter username: ");
-		Scanner scanner = new Scanner(System.in);
+//		Scanner scanner = new Scanner(System.in);
 		boolean usernameSet = false;
 		while(!usernameSet){
-				String username = scanner.nextLine();
-				out.println(username);
+//				String username = scanner.nextLine();
+//				out.println(username);
+//				Client.gui.outgoingText(username);
 				try {
 					semaphore.acquire();
 				} catch (InterruptedException e) {
@@ -39,12 +40,12 @@ public class ClientOutThread implements Runnable{
 					Client.gui.incommingText("Welcome "+Client.getUsername()+"!");
 				}
 		}
-		boolean exit = false;
-		while(!exit){
-			//System.out.print(Client.getUsername() + ": ");
-			String message = scanner.nextLine();
-			out.println(message);
-		}
-		scanner.close();
+//		boolean exit = false;
+//		while(!exit){
+//			//System.out.print(Client.getUsername() + ": ");
+////			String message = scanner.nextLine();
+////			out.println(message);
+//		}
+//		scanner.close();
 	}
 }

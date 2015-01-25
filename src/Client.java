@@ -23,15 +23,14 @@ public class Client {
 			System.err.println("Couldn't open connection to " + SERVER_ADRESS);
 			System.exit(1);
 		}
-		
 		System.out.println("Contacting to chat server ... ");
+		gui = new GUI();
+		gui.incommingText("Connected to chat.\n");
 
 		new Thread(new ClientInThread(socket, semaphore)).start();
 		new Thread(new ClientOutThread(socket, semaphore)).start();
 		
-		gui = new GUI();
 		
-		gui.incommingText("Connected to chat.");
 
 		// TODO close the client
 	}

@@ -55,6 +55,9 @@ public class GUI extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource() == sendButton){
+			outgoingText();
+		}
 		
 	}
 
@@ -64,6 +67,12 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void incommingText(String string) {
 		textField.append(string);
+	}
+
+	public void outgoingText() {
+		String input = inputField.getText();
+		inputField.setText("");
+		ClientOutThread.out.println(input);
 	}
 	
 	

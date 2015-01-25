@@ -42,10 +42,10 @@ public class ServerThread implements Runnable {
             while(!exit){
 	            String message = in.readLine();
 	            for(Socket s: socketList){
-	            	if (!s.equals(socket)){
+//	            	if (!s.equals(socket)){ //TODO Remove
 	            		PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
 	            		pw.println(username + ": "+message);
-	            	}
+//	            	}
 	            }
             }  
             out.close();
