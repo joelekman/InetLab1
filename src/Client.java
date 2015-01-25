@@ -11,6 +11,7 @@ public class Client {
 	private static Socket socket;
 	private static String username;
 	private static Semaphore semaphore = new Semaphore(0);
+	protected static GUI gui;
 	
 	public static void main(String[] args) throws IOException {
 		try {
@@ -28,10 +29,10 @@ public class Client {
 		new Thread(new ClientInThread(socket, semaphore)).start();
 		new Thread(new ClientOutThread(socket, semaphore)).start();
 		
-		GUI g = new GUI();
+		gui = new GUI();
 		
-		System.out.println("Connected  to chat.");
-		
+		gui.incommingText("Connected to chat.");
+
 		// TODO close the client
 	}
 	

@@ -58,6 +58,15 @@ public class GUI extends JFrame implements ActionListener {
 		
 	}
 
+	private void send(){
+		//ClientOutThread.out
+	}
+
+	public void incommingText(String string) {
+		textField.append(string);
+	}
+	
+	
 //	public void createTable(ArrayList<String> values) {
 //		if (pane != null) {
 //			frame.remove(pane);

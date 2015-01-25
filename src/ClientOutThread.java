@@ -22,7 +22,7 @@ public class ClientOutThread implements Runnable{
 
 	@Override
 	public void run() {
-		System.out.println("Enter username: ");
+		Client.gui.incommingText("Enter username: ");
 		Scanner scanner = new Scanner(System.in);
 		boolean usernameSet = false;
 		while(!usernameSet){
@@ -36,7 +36,7 @@ public class ClientOutThread implements Runnable{
 				}
 				if(Client.getUsername() != null) {
 					usernameSet = true;
-					System.out.println("Welcome "+Client.getUsername()+"!");
+					Client.gui.incommingText("Welcome "+Client.getUsername()+"!");
 				}
 		}
 		boolean exit = false;

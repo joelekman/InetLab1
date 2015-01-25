@@ -30,7 +30,7 @@ public class ClientInThread implements Runnable{
 					Client.setUsername(in.readLine());
 					break;
 				} else {
-					System.out.println(in.readLine());
+					Client.gui.incommingText(in.readLine());
 				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -43,7 +43,8 @@ public class ClientInThread implements Runnable{
 		
 		while(!exit){
         	try {
-				System.out.print("\r"+in.readLine()+"\n");
+//				System.out.print("\r"+in.readLine()+"\n");
+        		Client.gui.incommingText("\r"+in.readLine()+"\n");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
