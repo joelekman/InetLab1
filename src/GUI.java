@@ -4,14 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 
 public class GUI extends JFrame implements ActionListener {
+
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JPanel panel;
 	private JTextArea textField;
 	private JPanel inputPanel;
 	private JTextField inputField;
 	private JButton sendButton;
+	private JScrollPane scroller;
 
 	public GUI() {
 		frame = new JFrame("Chat Master 3000");
@@ -25,8 +29,10 @@ public class GUI extends JFrame implements ActionListener {
 		textField = new JTextArea(15,50); //To contain the incomming text
 		textField.setWrapStyleWord(true);
 		textField.setEditable(false);
+		DefaultCaret caret = (DefaultCaret)textField.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		
-		JScrollPane scroller = new JScrollPane(textField);
+		scroller = new JScrollPane(textField);
 		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
@@ -34,6 +40,13 @@ public class GUI extends JFrame implements ActionListener {
 		inputPanel.setLayout(new FlowLayout());
 		
 		inputField = new JTextField(20);
+		inputField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				outgoingText();
+			}
+		});
 		
 		sendButton = new JButton("Send");
 		sendButton.addActionListener(this);
@@ -54,15 +67,9 @@ public class GUI extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource() == sendButton){
 			outgoingText();
-		}
-		
-	}
-
-	private void send(){
-		//ClientOutThread.out
+		}	
 	}
 
 	public void incommingText(String string) {
@@ -74,107 +81,4 @@ public class GUI extends JFrame implements ActionListener {
 		inputField.setText("");
 		ClientOutThread.out.println(input);
 	}
-	
-	
-//	public void createTable(ArrayList<String> values) {
-//		if (pane != null) {
-//			frame.remove(pane);
-//		}
-//		String[] colNames = new String[Integer.parseInt(values.get(0))];
-//		int numberOfCol = Integer.parseInt(values.get(0));
-//		for (int i = 0; i < numberOfCol; i++) {
-//			colNames[i] = values.get(i + 1);
-//		}
-//		int numberOfRows = (values.size() - (1 + numberOfCol))
-//				/ (colNames.length);
-//		model = new DefaultTableModel(colNames, numberOfRows);
-//		table = new JTable(model) {
-//			@Override
-//			public boolean isCellEditable(int arg0, int arg1) {
-//
-//				return false;
-//			}
-//		};
-//		pane = new JScrollPane(table);
-//		for (int i = 0; i < numberOfRows; i++) {
-//			for (int j = 0; j < numberOfCol; j++) {
-//				table.setValueAt(
-//						values.get(numberOfCol * i + j + (numberOfCol + 1)), i,
-//						j);
-//			}
-//		}
-//		frame.add(pane);
-//		setVisible(true);
-//	}
-//
-//
-//
-//		deleteItems.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (count < ingredients.size()) {
-//					//dropdown.addItem(ingredients.get(count++));
-//					q.deleteIngredientsToKitchen(Integer.parseInt(amountSpinner
-//							.getValue().toString()), dropdown.getSelectedItem()
-//							.toString());
-//					createTable(q.selectKitchen());
-//				}
-//			}
-//		});
-//		frame.add(amountSpinner);
-//		frame.add(dropdown);
-//		frame.add(addItems);
-//		frame.add(deleteItems);
-//
-//	}
-//
-//	@Override
-//	public void actionPerformed(ActionEvent event) {
-//		if (event.getSource() == sendButton) {
-//			ArrayList<String> inKitchen = new ArrayList<String>();
-//			inKitchen = q.selectKitchen();
-//			createTable(inKitchen);
-//
-//		} else if (event.getSource() == exitButton) {
-//			ArrayList<String> inKitchen = new ArrayList<String>();
-//			inKitchen = q.checkRecipes();
-//			createTable(inKitchen);
-//		} else if (event.getSource() == mybutton3) {
-//			ArrayList<String> recipes = new ArrayList<String>();
-//			if (check1.isSelected()) {
-//				recipes.add(check1.getText());
-//			}
-//			if (check2.isSelected()) {
-//				recipes.add(check2.getText());
-//			}
-//			if (check3.isSelected()) {
-//				recipes.add(check3.getText());
-//			}
-////			System.out.println(recipes.toString().replace("[", "'")
-////					.replace(",", "', '").replace("]", "'"));
-//			createTable(q.customShoppingList(recipes));
-//
-//		} else if (event.getSource() == mybutton4) {
-//			ArrayList<String> recipes = new ArrayList<String>();
-//			if (check1.isSelected()) {
-//				recipes.add(check1.getText());
-//			}
-//			if (check2.isSelected()) {
-//				recipes.add(check2.getText());
-//			}
-//			if (check3.isSelected()) {
-//				recipes.add(check3.getText());
-//			}
-////			System.out.println(recipes.toString().replace("[", "'")
-////					.replace(",", "', '").replace("]", "'"));
-//			if (q.cookRecipe(recipes)) {
-//				title.setText("You have cooked: " + recipes.toString());
-//			} else {
-////				System.out
-////						.println("You have not enough ingredients to cook this!");
-//				title.setText("You have not enough ingredients to cook this!");
-//			}
-//
-//		}
-//
-//	}
 }

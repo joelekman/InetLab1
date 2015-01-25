@@ -3,8 +3,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.Semaphore;
 
-import javax.swing.JFrame;
-
 public class Client {
 	private static final int CONNECTION_PORT = 8991;
 	private static final String SERVER_ADRESS = "127.0.0.1";
