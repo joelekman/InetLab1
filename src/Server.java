@@ -19,7 +19,7 @@ public class Server {
 	private static boolean listening = true;
 	// The server socket.
 	private static ServerSocket serverSocket;
-	
+
 	/**
 	 * Main setting up the chat server and the needed threads.
 	 * 
@@ -39,7 +39,7 @@ public class Server {
 		ServerOutThread chatRoom = new ServerOutThread();
 		// Start a new thread for the chat room.
 		new Thread(chatRoom).start();
-		
+
 		// Listen for new connections from clients/users.
 		while (listening){
 			// Trying to set up a new socket for the client/user.
