@@ -7,10 +7,8 @@ import java.util.HashMap;
 public class Server {
 
 	private final static int CONNECTION_PORT = 8991;
-	static ArrayList<Socket> socketList = new ArrayList<Socket>();
 	private static boolean listening = true;
 	private static ServerSocket serverSocket;
-	static HashMap<String, Socket> usernames = new HashMap<String, Socket>();
 	
 	
 	public static void main(String[] args) {	
@@ -22,11 +20,14 @@ public class Server {
 		}
 
 		System.out.println("Server is started and listening on port: " + CONNECTION_PORT);
+		ServerOutThread chatRoom = new ServerOutThread();
+		new Thread(chatRoom).start();
+		
 		while (listening){
 			try {
 				Socket socket = serverSocket.accept();
-				addSocket(socket);
-				new Thread(new ServerThread(socket)).start();
+				chatRoom.addSocket(socket);
+				new Thread(new ServerClientThread(socket, chatRoom)).start();
 				System.out.println("User connected on socket "+socket.toString());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -39,29 +40,5 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}        
-	}
-	
-	public static synchronized ArrayList<Socket> getSockets(){
-		return socketList;
-	}
-	
-	public static synchronized void addSocket(Socket socket){
-		socketList.add(socket);
-	}
-	
-	public static synchronized void removeSocket(Socket socket){
-		socketList.remove(socket);
-	}
-	
-	public static synchronized boolean containsUsername(String username){
-		return usernames.containsKey(username);
-	}
-	
-	public static synchronized void addUsername(String username, Socket socket){
-		usernames.put(username, socket);
-	}
-	
-	public static synchronized void removeUsername(String username){
-		usernames.remove(username);
 	}
 }
