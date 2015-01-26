@@ -9,6 +9,7 @@ public class ClientInThread implements Runnable{
 	private BufferedReader in;
 	private Semaphore semaphore = null;
 	private static Boolean exit; 
+	private static Boolean userLoggedIn;
 	
 	public ClientInThread(Socket socket, Semaphore semaphore){
 		this.semaphore = semaphore;
@@ -23,20 +24,22 @@ public class ClientInThread implements Runnable{
 	@Override
 	public void run() {
 		exit = false;
+		userLoggedIn = false;
+		
 		String usernameSet = null;
-		while(true){
+		while(!userLoggedIn){
 			try {
 				usernameSet = in.readLine();
-				if(usernameSet.equals("true")){
+				if(usernameSet == null){
+					serverError();
+				} else if(usernameSet.equals("true")){
 					Client.setUsername(in.readLine());
-					break;
+					userLoggedIn = true;
 				} else {
 					Client.gui.incommingText(in.readLine());
 				}
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				usernameSet = "false";
-				e1.printStackTrace();
+				serverError();
 			} finally {
 				semaphore.release();
 			}
@@ -48,17 +51,14 @@ public class ClientInThread implements Runnable{
         		if(message != null){
         			Client.gui.incommingText(message);
         		} else {
-        			Client.gui.incommingText("Server has failed! Chat program is going to shut down...");
-        			Thread.sleep(3000);
-        			exit = true;
+        			serverError();
         		}
-			} catch (IOException | InterruptedException e) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 
 			}
         }
 		try {
-			ClientOutThread.out.println(Client.getUsername() +" left the conversation."); // TODO, not working
 			System.out.println("User is logged out");
 			in.close();
 			System.exit(1);
@@ -68,6 +68,18 @@ public class ClientInThread implements Runnable{
 		}
 	}
 
+	private void serverError(){
+		Client.gui.incommingText("Server has failed! Chat program is going to shut down...");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		userLoggedIn = true;
+		exit = true;
+	}
+	
 	public static void exitChat() {
 		exit = true;
 	}

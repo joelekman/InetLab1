@@ -14,7 +14,7 @@ public class Server {
 			serverSocket = new ServerSocket(CONNECTION_PORT); 
 		} catch (IOException e) {
 			System.err.println("Error: Could not listen on port: " + CONNECTION_PORT);
-			System.exit(1); // TODO
+			System.exit(1); // Close the application if a connection can't be set up
 		}
 
 		System.out.println("Server is started and listening on port: " + CONNECTION_PORT);
