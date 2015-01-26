@@ -25,8 +25,8 @@ public class Server {
 		while (listening){
 			try {
 				Socket socket = serverSocket.accept();
-				socketList.add(socket);
-				new Thread(new ServerThread(socket, socketList)).start();
+				addSocket(socket);
+				new Thread(new ServerThread(socket)).start();
 				System.out.println("User connected on socket "+socket.toString());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -39,5 +39,29 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}        
+	}
+	
+	public static synchronized ArrayList<Socket> getSockets(){
+		return socketList;
+	}
+	
+	public static synchronized void addSocket(Socket socket){
+		socketList.add(socket);
+	}
+	
+	public static synchronized void removeSocket(Socket socket){
+		socketList.remove(socket);
+	}
+	
+	public static synchronized boolean containsUsername(String username){
+		return usernames.containsKey(username);
+	}
+	
+	public static synchronized void addUsername(String username, Socket socket){
+		usernames.put(username, socket);
+	}
+	
+	public static synchronized void removeUsername(String username){
+		usernames.remove(username);
 	}
 }

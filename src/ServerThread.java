@@ -9,12 +9,10 @@ public class ServerThread implements Runnable {
 	private Socket socket;
 	private BufferedReader in;
 	private PrintWriter out;
-	private ArrayList<Socket> socketList;
 	private String username;
 
-	public ServerThread(Socket socket, ArrayList<Socket> socketList) {
+	public ServerThread(Socket socket) {
 		this.socket = socket;
-		this.socketList = socketList;
 	}
 
 	public void run(){   
@@ -37,8 +35,8 @@ public class ServerThread implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (user != null && !Server.usernames.containsKey(user.toLowerCase())){
-				Server.usernames.put(user.toLowerCase(), socket); //TODO semaphore
+			if (user != null && !Server.containsUsername(user.toLowerCase())){
+				Server.addUsername(user.toLowerCase(), socket); //TODO semaphore
 				username = user;
 				usernameSet = true;
 				out.println("true");
@@ -58,15 +56,15 @@ public class ServerThread implements Runnable {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			for(Socket s: socketList){
+			for(Socket s: Server.getSockets()){
 				if(message == null){
 					if(s == socket){// TODO körs inte? 
 						System.out.println(username + " logged out.");
 						exit = true;
-						Server.usernames.remove(username);
-						socketList.remove(s);
+						Server.removeUsername(username);
+						Server.removeSocket(s);
 
-						for(Socket t: socketList){
+						for(Socket t: Server.getSockets()){
 							try {
 								PrintWriter pw = new PrintWriter(t.getOutputStream(), true);
 								pw.println(username + " logged out.");
