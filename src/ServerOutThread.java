@@ -17,13 +17,13 @@ public class ServerOutThread implements Runnable{
 	}
 	
 	public synchronized Boolean sendMessage(String message, Socket sender, String username){
-		for(Socket s: getSockets()){
+		for(Socket s: socketList){
 			if(message == null){
 				if(s == sender){
 					System.out.println(username + " logged out.");
-					removeUsername(username);
-					removeSocket(s);
-					for(Socket t: getSockets()){
+					usernames.remove(username);
+					socketList.remove(s);
+					for(Socket t: socketList){
 						try {
 							PrintWriter pw = new PrintWriter(t.getOutputStream(), true);
 							pw.println(username + " logged out.");
@@ -46,18 +46,9 @@ public class ServerOutThread implements Runnable{
 		}
 		return false;
 	}  
-
-	
-	public synchronized ArrayList<Socket> getSockets(){
-		return socketList;
-	}
 	
 	public synchronized void addSocket(Socket socket){
 		socketList.add(socket);
-	}
-	
-	public synchronized void removeSocket(Socket socket){
-		socketList.remove(socket);
 	}
 	
 	public synchronized boolean containsUsername(String username){
@@ -67,9 +58,4 @@ public class ServerOutThread implements Runnable{
 	public synchronized void addUsername(String username, Socket socket){
 		usernames.put(username, socket);
 	}
-	
-	public synchronized void removeUsername(String username){
-		usernames.remove(username);
-	}
-
 }
