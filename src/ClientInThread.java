@@ -47,11 +47,12 @@ public class ClientInThread implements Runnable{
         		Client.gui.incommingText(in.readLine());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				ClientOutThread.out.println(Client.getUsername() +" left the conversation."); // TODO, not working
-				System.out.println("User is logged out");
+
 			}
         }
 		try {
+			ClientOutThread.out.println(Client.getUsername() +" left the conversation."); // TODO, not working
+			System.out.println("User is logged out");
 			in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
