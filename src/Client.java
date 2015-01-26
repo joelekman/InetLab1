@@ -3,6 +3,15 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.Semaphore;
 
+
+/**
+ * 
+ * @author Joel Ekman
+ * @author Tom Johansson
+ * 
+ * @version 2015-01-26
+ *
+ */
 public class Client {
 	private static final int CONNECTION_PORT = 8991;
 	private static final String SERVER_ADRESS = "130.229.155.254";//"127.0.0.1";

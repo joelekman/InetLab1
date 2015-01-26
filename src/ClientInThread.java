@@ -4,7 +4,14 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.Semaphore;
 
-
+/**
+ * 
+ * @author Joel Ekman
+ * @author Tom Johansson
+ * 
+ * @version 2015-01-26
+ *
+ */
 public class ClientInThread implements Runnable{
 	private BufferedReader in;
 	private Semaphore semaphore = null;

@@ -5,10 +5,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
+/**
+ * 
+ * @author Joel Ekman
+ * @author Tom Johansson
+ * 
+ * @version 2015-01-26
+ *
+ */
 /**
 * Stuff left to make the user experince great:
 * Fix so that it scrolls down after the window has been pushed.

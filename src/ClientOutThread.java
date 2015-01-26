@@ -3,7 +3,14 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.Semaphore;
 
-
+/**
+ * 
+ * @author Joel Ekman
+ * @author Tom Johansson
+ * 
+ * @version 2015-01-26
+ *
+ */
 public class ClientOutThread implements Runnable{
 	protected static PrintWriter out;
 	Semaphore semaphore = null;
