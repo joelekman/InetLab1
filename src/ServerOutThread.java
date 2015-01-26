@@ -1,7 +1,10 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -9,10 +12,11 @@ public class ServerOutThread implements Runnable{
 
 	private ArrayList<Socket> socketList = new ArrayList<Socket>();
 	private HashMap<String, Socket> usernames = new HashMap<String, Socket>();
+	DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+
 		
 	}
 	
@@ -37,7 +41,8 @@ public class ServerOutThread implements Runnable{
 			} else {
 				try {
 					PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
-					pw.println(username + ": "+message);
+					Date date = new Date();
+					pw.println(dateFormat.format(date)+ " "+username + ": "+message);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

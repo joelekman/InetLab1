@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Iterator;
 
 public class ServerClientThread implements Runnable {
 	private Socket socket;
@@ -43,6 +42,8 @@ public class ServerClientThread implements Runnable {
 				usernameSet = true;
 				out.println("true");
 				out.println(user);
+				chatRoom.sendMessage("Joined the chat!", socket, user);
+				chatRoom.addSocket(socket);
 				System.out.println("User singned in with username: "+username);
 			} else {
 				out.println("false");
@@ -61,12 +62,12 @@ public class ServerClientThread implements Runnable {
 			exit = chatRoom.sendMessage(message, socket, username);
 		}
 
-	try {
-		out.close();
-		in.close();
-		socket.close();
-	}catch (IOException e){
-		e.printStackTrace();
-	}
-}    
+		try {
+			out.close();
+			in.close();
+			socket.close();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}    
 }

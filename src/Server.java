@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Server {
 
@@ -26,7 +24,6 @@ public class Server {
 		while (listening){
 			try {
 				Socket socket = serverSocket.accept();
-				chatRoom.addSocket(socket);
 				new Thread(new ServerClientThread(socket, chatRoom)).start();
 				System.out.println("User connected on socket "+socket.toString());
 			} catch (IOException e) {
