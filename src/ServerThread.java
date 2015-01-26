@@ -59,18 +59,31 @@ public class ServerThread implements Runnable {
 				e1.printStackTrace();
 			}
 			for(Socket s: socketList){
-				if(message != null){
+				if(message == null){
+					if(s == socket){// TODO körs inte? 
+						System.out.println(username + " logged out.");
+						exit = true;
+						Server.usernames.remove(username);
+						socketList.remove(s);
+
+						for(Socket t: socketList){
+							try {
+								PrintWriter pw = new PrintWriter(t.getOutputStream(), true);
+								pw.println(username + " logged out.");
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				} else {
 					try {
 						PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
 						pw.println(username + ": "+message);
 					} catch (IOException e) {
-						if(s == socket){// TODO körs inte? 
-							System.out.println(username + " logged out.");
-							exit = true;
-							Server.usernames.remove(username);
-						}
-						socketList.remove(s);
+						e.printStackTrace();
 					}
+
 				}
 			}
 		}  
