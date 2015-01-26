@@ -17,7 +17,7 @@ public class Client {
 	// Port to connect to the server
 	private static final int CONNECTION_PORT = 8991;
 	// IP-address of the server
-	private static final String SERVER_ADDRESS = "130.229.155.254";
+	private static final String SERVER_ADDRESS = "127.0.0.1";//""130.229.155.254";
 	// Socket to connect to the server
 	private static Socket socket;
 	// The users selected username
@@ -51,12 +51,12 @@ public class Client {
 		}
 		System.out.println("Contacting to chat server ... ");
 		// Start the threads and GUI
+		gui = new GUI();
+		gui.incommingText("Connected to chat.\n");
 		clientInThread = new Thread(new ClientInThread(socket, semaphore));
 		clientInThread.start();
 		clientOutThread = new Thread(new ClientOutThread(socket, semaphore));
 		clientOutThread.start();
-		gui = new GUI();
-		gui.incommingText("Connected to chat.\n");
 
 	}
 

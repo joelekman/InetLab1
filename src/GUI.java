@@ -16,14 +16,6 @@ import javax.swing.text.DefaultCaret;
  * @version 2015-01-26
  *
  */
-/**
-* Stuff left to make the user experince great:
-* Fix so that it scrolls down after the window has been pushed.
-* Color code the users.
-* fix the design of the layout
-* multi line inputs
-*/
-
 public class GUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
