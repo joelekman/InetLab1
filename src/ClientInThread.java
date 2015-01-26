@@ -44,8 +44,15 @@ public class ClientInThread implements Runnable{
 		
 		while(!exit){
         	try {
-        		Client.gui.incommingText(in.readLine());
-			} catch (IOException e) {
+        		String message = in.readLine();
+        		if(message != null){
+        			Client.gui.incommingText(message);
+        		} else {
+        			Client.gui.incommingText("Server has failed! Chat program is going to shut down...");
+        			Thread.sleep(3000);
+        			exit = true;
+        		}
+			} catch (IOException | InterruptedException e) {
 				// TODO Auto-generated catch block
 
 			}
@@ -54,6 +61,7 @@ public class ClientInThread implements Runnable{
 			ClientOutThread.out.println(Client.getUsername() +" left the conversation."); // TODO, not working
 			System.out.println("User is logged out");
 			in.close();
+			System.exit(1);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

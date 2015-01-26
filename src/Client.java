@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 
 public class Client {
 	private static final int CONNECTION_PORT = 8991;
-	private static final String SERVER_ADRESS = "130.229.155.254";
+	private static final String SERVER_ADRESS = "127.0.0.1";//"130.229.155.254";
 	private static Socket socket;
 	private static String username;
 	private static Semaphore semaphore = new Semaphore(0);
